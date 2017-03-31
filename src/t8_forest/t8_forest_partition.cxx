@@ -257,7 +257,7 @@ t8_forest_partition_tree_first_last_el (t8_tree_t tree,
   /* return true if the last element that we send is also the last
    * element of the tree */
   if (last_element_send - tree->elements_offset
-      == tree->elements.elem_count - 1) {
+      == (t8_locidx_t) tree->elements.elem_count - 1) {
     return 1;
   }
   return 0;
@@ -766,9 +766,9 @@ t8_forest_partition (t8_forest_t forest)
   t8_forest_partition_compute_new_offset (forest);
   t8_forest_partition_given (forest);
 
-  T8_ASSERT (t8_forest_get_num_local_trees (forest_from)
+  T8_ASSERT ((size_t) t8_forest_get_num_local_trees (forest_from)
              == forest_from->trees->elem_count);
-  T8_ASSERT (t8_forest_get_num_local_trees (forest)
+  T8_ASSERT ((size_t) t8_forest_get_num_local_trees (forest)
              == forest->trees->elem_count);
 
   if (forest->profile != NULL) {
