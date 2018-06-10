@@ -256,6 +256,17 @@ void                t8_flow_incomp_cube_flow (const double x[3], double t,
 void                t8_flow_around_circle (const double x[3], double t,
                                            double x_out[3]);
 
+/** Apply the transformation w(z) = z + lamda^2/z
+ * to the flow around the circle to obtain a flow
+ * around a NACA airfoil. Here we interpret the (x[0],x[1]) coordinates
+ * as z = x + iy.
+ * The x[3] coordinate is not modified.
+ * See Modeling the Fluid Flow around Airfoils Using
+ * Conformal Mapping - Nitin R. Kapania, Katherine Terracciano, Shannon Taylor
+ */
+void                t8_flow_circle_to_naca (const double x[3], double t,
+                                       double x_out[3]);
+
 void                t8_flow_stokes_flow_sphere_shell (const double x[3],
                                                       double t,
                                                       double x_out[3]);

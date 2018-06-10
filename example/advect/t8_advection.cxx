@@ -1188,6 +1188,8 @@ t8_advect_choose_flow (int flow_arg)
     return t8_flow_around_circle;
   case 6:
     return t8_flow_stokes_flow_sphere_shell;
+  case 7:
+      return t8_flow_circle_to_naca;
   default:
     SC_ABORT ("Wrong argument for flow parameter.\n");
   }
@@ -2004,7 +2006,7 @@ main (int argc, char *argv[])
     t8_global_essentialf ("%s\n", help);
     sc_options_print_usage (t8_get_package_id (), SC_LP_ERROR, opt, NULL);
   }
-  else if (parsed >= 0 && 1 <= flow_arg && flow_arg <= 6 && 0 <= level
+  else if (parsed >= 0 && 1 <= flow_arg && flow_arg <= 7 && 0 <= level
            && 0 <= reflevel && 0 <= vtk_freq
            && ((mshfile != NULL && 0 < dim && dim <= 3)
                || (1 <= eclass_int && eclass_int <= 8)) && band_width >= 0) {

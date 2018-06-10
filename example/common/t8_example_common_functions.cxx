@@ -25,6 +25,7 @@
 
 #include <example/common/t8_example_common.h>
 #include <t8_vec.h>
+#include <complex.h>
 
 T8_EXTERN_C_BEGIN ();
 
@@ -300,11 +301,19 @@ t8_flow_around_circle (const double x[3], double t, double x_out[3])
 {
   double              polar[2];
   double              polar_speed[2];
-  const double        R = 0.15;
+  //const double        R = 0.15;
+  const double        R = 1;
 
-  t8_vec_axb (x, x_out, 1, -0.5);
+  /* transform [0,1] x [0,1] coordinates to [-0.5,0.5] x [-0.5,0.5] */
+  //t8_vec_axb (x, x_out, 3, -1.6);
+  //////////////
+    t8_vec_axb (x, x_out, 1, 0.2);
+  //////////////
+
+
   /* Set the z-coordinate to zero */
   x_out[2] = 0;
+
   if (t8_vec_norm (x_out) < R) {
     /* Set the velocity inside the circle to 0 */
     x_out[0] = x_out[1] = x_out[2] = 0;
@@ -316,9 +325,123 @@ t8_flow_around_circle (const double x[3], double t, double x_out[3])
   polar_speed[0] = (1 - SC_SQR (R) / SC_SQR (polar[0])) * cos (polar[1]);
   /* Compute v_phi(r,phi) = -U (1+ R^2/r^2) sin (phi) */
   polar_speed[1] = -(1 + SC_SQR (R) / SC_SQR (polar[0])) * sin (polar[1]);
+  /* Convert the coordinates back to cartesian */
   t8_flow_2d_cart_coords ((const double *) polar_speed, polar, x_out);
+  /* Set the z-coordinate to zero */
   x_out[2] = 0;
 }
+
+/* Compute out = x*y for two complex numbers x and y */
+static void
+t8_flow_cmplx_mult (const double x[2], const double y[2], double out[2])
+{
+    out[0] = x[0]*y[0] - x[1]*y[1];
+    out[1] = x[1]*y[0] + x[0]*y[1];
+}
+
+
+/* Compute out = x/y for two complex numbers x and y.
+ * If y = 0 then out is set to 0 */
+static void
+t8_flow_cmplx_div (const double x[2], const double y[2], double out[2])
+{
+    double norm_ysq = y[0] * y[0] + y[1]*y[1];
+
+    if (norm_ysq == 0) {
+        /* prevent div by 0 */
+        out[0] = out[1] = 0;
+    }
+    out[0] = (x[0]*y[0] + x[1]*y[1])/norm_ysq;
+    out[1] = (x[1]*y[0] - x[0]*y[1])/norm_ysq;
+}
+
+/* Apply the transformation J(z) = u(z)/(1-lambda/z^2) (Joukowski)
+ * to the flow  u around the circle to obtain a flow
+ * around a NACA airfoil. Here we interpret the (x[0],x[1]) coordinates
+ * as z = x + iy.
+ * The x[3] coordinate is not modified.
+ * See Modeling the Fluid Flow around Airfoils Using
+ * Conformal Mapping - Nitin R. Kapania, Katherine Terracciano, Shannon Taylor
+ */
+void
+t8_flow_circle_to_naca (const double x[3], double t, double x_out[3])
+{
+    int i;
+    double norm_sq;
+    const double lambda_sq = 4;
+    double temp[3];
+    double z_sq[2];
+    double z_sqml[2];
+    double u[2];
+    double complex x_cmplx;
+    double complex inverse_joukowski;
+    double z[3];
+
+
+    /* transform [0,1] x [0,1] coordinates to [-0.5,0.5] x [-0.5,0.5] */
+    t8_vec_axb (x, temp, 3, -1.5);
+    /* Compute the inverse Joukowski transform to map from the
+     * Joukowski airfoil to the circle.
+     * z = (w - sqrt(w^2-4))/2
+     */
+    x_cmplx = temp[0] + temp[1] * _Complex_I;
+    inverse_joukowski = (x_cmplx - csqrt (x_cmplx*x_cmplx -4)) / 2;
+    /* Convert complex  to vector */
+    z[0] = creal (inverse_joukowski);
+    z[1] = cimag (inverse_joukowski);
+    z[2] = 0;
+
+    /* Compute flow around the circle */
+    t8_flow_around_circle (z, t, u);
+
+    /* Since
+     *    u / (1-l/z^2) = u / ((z^2 -l)/z^2) = u * (z^2/(z^2-l))
+     * we compute u * (z^2/(z^2-l))
+     */
+
+    /* Compute z^2 */
+    t8_flow_cmplx_mult (z, z, z_sq);
+
+    ///////////////////////////
+    z_sqml[0] = z_sq[0] - lambda_sq;
+    z_sqml[1] = z_sq[1];
+
+    /* Compute temp = z_sq/(z_sq-1) */
+    t8_flow_cmplx_div (z_sq, z_sqml, temp);
+    /* Compute x_out * temp */
+    t8_flow_cmplx_mult (u, temp, x_out);
+    /* Set third coordinate to 0 */
+    x_out[2] = 0;
+    return;
+    /////////////////////////////////////////
+
+
+    /* norm^2 of z^2 */
+    norm_sq = z_sq[0] * z_sq[0] + z_sq[1] * z_sq[1];
+    if (norm_sq == 0) {
+        /* prevent div by 0 */
+        x_out[0] = x_out[1] = 0;
+        return;
+    }
+
+    /* temp = 1 - lambda/z^2 */
+    temp[0] = 1- lambda_sq * z_sq[0]/norm_sq;
+    temp[1] = -lambda_sq * z_sq[1]/norm_sq;
+    /* norm of temp */
+    norm_sq = temp[0] * temp[0] + temp[1] *temp[1];
+    if (norm_sq == 0) {
+        /* prevent div by 0 */
+        x_out[0] = x_out[1] = 0;
+        return;
+    }
+    /* Compute z_sq = x_out/(1-l/z^2) */
+    z_sq[0] = (x_out[0]*temp[0]+x_out[1]*temp[1])/norm_sq;
+    z_sq[1] = (x_out[1]*temp[0]-x_out[0]*temp[1])/norm_sq;
+
+    x_out[0] = z_sq[0];
+    x_out[1] = z_sq[1];
+}
+
 
 /* The following functions model a solution to the stokes equation on
  * a spherical shell. See
