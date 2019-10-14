@@ -85,6 +85,14 @@ t8_refine_ls_forest_cmesh_mshfile (t8_cmesh_t cmesh, const char *vtu_prefix,
   t8_forest_set_level (forest, init_level);
   /* Commit the forest */
   t8_forest_commit (forest);
+
+  /* vtu output */
+  if (!no_vtk) {
+    snprintf (forest_vtu, BUFSIZ, "%s_forest_uniform", vtu_prefix);
+    t8_forest_write_vtk (forest, forest_vtu);
+    t8_debugf ("Wrote adapted forest\n");
+  }
+
   /* Set the data for adapt. */
   /* Set the levelset description */
   levelset_description.L = t8_levelset_sphere; /* Refinement along a sphere */
@@ -115,26 +123,52 @@ t8_refine_ls_forest_cmesh_mshfile (t8_cmesh_t cmesh, const char *vtu_prefix,
       t8_global_productionf ("Levels: %i to %i\n", init_level, max_level);
 
       t8_forest_commit (forest_adapt);
+      forest = forest_adapt;
+      forest_adapt = NULL;
+    }
+      /* vtu output */
+      if (!no_vtk) {
+        snprintf (forest_vtu, BUFSIZ, "%s_forest_adapt_%03d", vtu_prefix,
+                  time_step);
+        t8_forest_write_vtk (forest, forest_vtu);
+        t8_debugf ("Wrote adapted forest\n");
+      }
+
+
+      /* If desired, balance after last step */
+      if (do_balance) {
+        t8_forest_init (&forest_balance);
+        t8_forest_set_balance (forest_balance, forest, 0);
+        t8_forest_commit (forest_balance);
+        forest = forest_balance;
+
+        /* vtu output */
+        if (!no_vtk) {
+          snprintf (forest_vtu, BUFSIZ, "%s_forest_balance_%03d", vtu_prefix,
+                    time_step);
+          t8_forest_write_vtk (forest, forest_vtu);
+          t8_debugf ("Wrote adapted forest\n");
+        }
+      }
+
       /* partition the adapted forest */
       t8_forest_init (&forest_partition);
       /* partition the adapted forest */
-      t8_forest_set_partition (forest_partition, forest_adapt, 0);
+      t8_forest_set_partition (forest_partition, forest, 0);
       if (do_ghost) {
         t8_forest_set_ghost (forest_partition, 1, T8_GHOST_FACES);
       }
       t8_forest_commit (forest_partition);
 
-      /* If desired, create ghost elements and balance after last step */
-      if (r == refine_rounds - 1) {
-        if (do_balance) {
-          t8_forest_init (&forest_balance);
-          t8_forest_set_balance (forest_balance, forest_partition, 0);
-          t8_forest_commit (forest_balance);
-          forest_partition = forest_balance;
-        }
+      /* vtu output */
+      if (!no_vtk) {
+        snprintf (forest_vtu, BUFSIZ, "%s_forest_partition_%03d", vtu_prefix,
+                  time_step);
+        t8_forest_write_vtk (forest_partition, forest_vtu);
+        t8_debugf ("Wrote adapted forest\n");
       }
+
       forest = forest_partition;
-    }
 
     /* Set the vtu output name */
     if (!no_vtk) {
