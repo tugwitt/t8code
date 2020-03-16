@@ -1,4 +1,6 @@
 
+Test status: ![Tests](https://github.com/holke/t8code/workflows/Tests/badge.svg)
+
 The t8code is a C library to manage a collection (a forest) of multiple
 connected adaptive space-trees of general element types in parallel.
 It is licensed under the GNU General Public License 2.0 or later.
