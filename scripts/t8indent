@@ -34,7 +34,7 @@ INDENT_BASE_OPTIONS="-bap -bli0 -br -nut -psl -sob -di20"
 #   static t8_cmesh_t
 #   afunction (int aparameter) {
 T8CODE_ADDITIONAL_DATATYPES="-T t8_cmesh_t -T t8_forest_t -T size_t \
-	                     -T t8_locidx_t -T t8_gloidx_t"
+	                     -T t8_locidx_t -T t8_gloidx_t -T t8_element_t"
 
 INDENT_OPTIONS="$INDENT_BASE_OPTIONS $T8CODE_ADDITIONAL_DATATYPES"
 
