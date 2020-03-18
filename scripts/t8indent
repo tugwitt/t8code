@@ -18,6 +18,22 @@
 # swallow optional blank lines
 INDENT_OPTIONS="-bap -bli0 -br -nut -psl -sob -di20"
 
+# Indent has problems with user defined data types.
+# We can tell indent manually which datatypes we defined.
+# If you encounter an indenting problem with a user defined
+# type, add it with a -T prefix to this list.
+#
+# Example without -T t8_cmesh_t:
+#   static	t8_cmesh_t
+#   afunction (int aparameter) {
+#
+# Note the undesired whitespaces between 'static' and 't8_cmesh_t'.
+#
+# Example with -T t8_cmesh_t:
+#   static t8_cmesh_t
+#   afunction (int aparameter) {
+T8CODE_TYPEDEFS="-T t8_cmesh_t -T t8_forest_t"
+
 INDENT=`which gnuindent 2> /dev/null`
 if test -z "$INDENT" ; then
 	INDENT=`which gindent`
@@ -33,7 +49,7 @@ for arg in "$@" ; do
 done
 if [ -z "$WANTSOUT" ]; then
   for NAME in "$@" ; do
-    $INDENT $INDENT_OPTIONS "$NAME"
+    $INDENT $INDENT_OPTIONS $T8CODE_TYPEDEFS "$NAME"
   done
 else
   $INDENT $INDENT_OPTIONS $@
