@@ -49,12 +49,23 @@ if [ $FILE_SUFFIX = "c" -o $FILE_SUFFIX = "h" -o $FILE_SUFFIX = "cxx" -o $FILE_S
   then
   # Create temp file
   TMP_FILE=`mktemp`
+  # Create tmp file for diff output
+  TMP_FILE2=`mktemp`
   # indent the source file and store temporarily
   $INDENT -o $TMP_FILE $file
   # Check whether the indented file and the original differ
   # We are only interested in the exit status of diff so we throw away its output.
-  diff -q $TMP_FILE $file > /dev/null
+  OLD_OPTION=--old-line-format=
+  NEW_OPTION=--new-line-format="%dn "
+  UNCHANGED_OPTION=--unchanged-line-format=
+  diff "$OLD_OPTION" "$NEW_OPTION" "$UNCHANGED_OPTION" $TMP_FILE $file > $TMP_FILE2
   status=$?
+  if [ $status != 0 ]
+  then
+    echo $file is not indented. Unindented lines:
+    cat $TMP_FILE2
+    echo
+  fi
   exit $status
 else
   echo "ERROR: File does not have valid suffix (.c .h .cxx .hxx)."
