@@ -126,7 +126,7 @@ typedef int         (*t8_forest_adapt_t) (t8_forest_t forest,
  * \param [in,out] pforest      On input, this pointer must be non-NULL.
  *                              On return, this pointer set to the new forest.
  */
-void                t8_forest_init (t8_forest_t * pforest);
+void                t8_forest_init (t8_forest_t *pforest);
 
 /** Check whether a forest is not NULL, initialized and not committed.
  * In addition, it asserts that the forest is consistent as much as possible.
@@ -498,8 +498,8 @@ double              t8_forest_profile_get_balance_time (t8_forest_t forest,
  * \see t8_forest_set_ghost
  */
 double              t8_forest_profile_get_ghost_time (t8_forest_t forest,
-                                                      t8_locidx_t *
-                                                      ghosts_sent);
+                                                      t8_locidx_t
+                                                      *ghosts_sent);
 
 /** Get the waittime of the last call to \ref t8_forest_ghost_exchange_data.
  * \param [in]   forest         The forest.
@@ -614,7 +614,7 @@ t8_cmesh_t          t8_forest_get_cmesh (t8_forest_t forest);
  */
 t8_element_t       *t8_forest_get_element (t8_forest_t forest,
                                            t8_locidx_t lelement_id,
-                                           t8_locidx_t * ltreeid);
+                                           t8_locidx_t *ltreeid);
 
 /** Return an element of a local tree in a forest.
  * \param [in]      forest      The forest.
@@ -919,7 +919,7 @@ void                t8_forest_ref (t8_forest_t forest);
  *                              Otherwise, the pointer is not changed and
  *                              the forest is not modified in other ways.
  */
-void                t8_forest_unref (t8_forest_t * pforest);
+void                t8_forest_unref (t8_forest_t *pforest);
 
 T8_EXTERN_C_END ();
 

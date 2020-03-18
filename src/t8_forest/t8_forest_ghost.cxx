@@ -1425,7 +1425,7 @@ t8_forest_ghost_receive_message (int recv_rank, sc_MPI_Comm comm,
 static void
 t8_forest_ghost_parse_received_message (t8_forest_t forest,
                                         t8_forest_ghost_t ghost,
-                                        t8_locidx_t * current_element_offset,
+                                        t8_locidx_t *current_element_offset,
                                         int recv_rank, char *recv_buffer,
                                         int recv_bytes)
 {
@@ -2055,7 +2055,7 @@ t8_forest_ghost_remote_first_elem (t8_forest_t forest, int remote)
 
 /* Fill the send buffer for a ghost data exchange for on remote rank.
  * returns the number of bytes in the buffer. */
-static              size_t
+static size_t
 t8_forest_ghost_exchange_fill_send_buffer (t8_forest_t forest, int remote,
                                            char **pbuffer,
                                            sc_array_t * element_data)

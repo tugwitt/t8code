@@ -1542,7 +1542,7 @@ t8_forest_leaf_face_neighbors (t8_forest_t forest, t8_locidx_t ltreeid,
                                t8_element_t ** pneighbor_leafs[],
                                int face, int *dual_faces[],
                                int *num_neighbors,
-                               t8_locidx_t ** pelement_indices,
+                               t8_locidx_t **pelement_indices,
                                t8_eclass_scheme_c ** pneigh_scheme,
                                int forest_is_balanced)
 {
@@ -2278,7 +2278,7 @@ t8_forest_element_find_owner_old (t8_forest_t forest,
    * We thus check by hand if this process owns the element and exclude it
    * from the array. */
   proc = *(int *) sc_array_index (owners_of_tree, 0);
-  if (owners_of_tree->elem_count == 1) {
+  if (owners_of_tree->ele m_count == 1) {
     /* There is only this proc as possible owner. */
     ts->t8_element_destroy (1, &element_first_desc);
     if (all_owners_of_tree == NULL) {

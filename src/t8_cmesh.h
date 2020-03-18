@@ -62,7 +62,7 @@ T8_EXTERN_C_BEGIN ();
  * \param [in,out] pcmesh       On input, this pointer must be non-NULL.
  *                              On return, this pointer set to the new cmesh.
  */
-void                t8_cmesh_init (t8_cmesh_t * pcmesh);
+void                t8_cmesh_init (t8_cmesh_t *pcmesh);
 
 /** Check whether a cmesh is not NULL, initialized and not committed.
  * In addition, it asserts that the cmesh is consistent as much as possible.
@@ -231,7 +231,7 @@ void                t8_cmesh_set_partition_uniform (t8_cmesh_t cmesh,
  *                             TODO: document flag for shared trees.
  */
 void                t8_cmesh_set_partition_given (t8_cmesh_t cmesh,
-                                                  t8_gloidx_t * tree_offsets);
+                                                  t8_gloidx_t *tree_offsets);
 #endif
 
 /** Refine the cmesh to a given level.
@@ -593,11 +593,10 @@ t8_shmem_array_t    t8_cmesh_get_partition_table (t8_cmesh_t cmesh);
  */
 void                t8_cmesh_uniform_bounds (t8_cmesh_t cmesh, int level,
                                              t8_scheme_cxx_t * ts,
-                                             t8_gloidx_t * first_local_tree,
-                                             t8_gloidx_t *
-                                             child_in_tree_begin,
-                                             t8_gloidx_t * last_local_tree,
-                                             t8_gloidx_t * child_in_tree_end,
+                                             t8_gloidx_t *first_local_tree,
+                                             t8_gloidx_t *child_in_tree_begin,
+                                             t8_gloidx_t *last_local_tree,
+                                             t8_gloidx_t *child_in_tree_end,
                                              int8_t * first_tree_shared);
 
 /** Increase the reference counter of a cmesh.
@@ -618,7 +617,7 @@ void                t8_cmesh_ref (t8_cmesh_t cmesh);
  *                              Otherwise, the pointer is not changed and
  *                              the cmesh is not modified in other ways.
  */
-void                t8_cmesh_unref (t8_cmesh_t * pcmesh);
+void                t8_cmesh_unref (t8_cmesh_t *pcmesh);
 
 /** Verify that a coarse mesh has only one reference left and destroy it.
  * This function is preferred over \ref t8_cmesh_unref when it is known
@@ -628,7 +627,7 @@ void                t8_cmesh_unref (t8_cmesh_t * pcmesh);
  *                              Then it effectively calls \ref t8_cmesh_unref.
  * \param [in]      comm        A mpi communicator that is valid with \a cmesh.
  */
-void                t8_cmesh_destroy (t8_cmesh_t * pcmesh);
+void                t8_cmesh_destroy (t8_cmesh_t *pcmesh);
 
 /* Functions for construcing complete and committed cmeshes */
 

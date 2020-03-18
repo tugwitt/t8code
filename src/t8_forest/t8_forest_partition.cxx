@@ -42,16 +42,16 @@ typedef struct
 
 /* Given the element offset array and a rank, return the first
  * local element id of this rank */
-static              t8_gloidx_t
-t8_forest_partition_first_element (t8_gloidx_t * offset, int rank)
+static t8_gloidx_t
+t8_forest_partition_first_element (t8_gloidx_t *offset, int rank)
 {
   return offset[rank];
 }
 
 /* Given the element offset array and a rank, return the last
  * local element id of this rank */
-static              t8_gloidx_t
-t8_forest_partition_last_element (t8_gloidx_t * offset, int rank)
+static t8_gloidx_t
+t8_forest_partition_last_element (t8_gloidx_t *offset, int rank)
 {
   return offset[rank + 1] - 1;
 }
@@ -59,7 +59,7 @@ t8_forest_partition_last_element (t8_gloidx_t * offset, int rank)
 /* Query whether a given process is assigned no elements in
  * an offset array */
 static int
-t8_forest_partition_empty (t8_gloidx_t * offset, int rank)
+t8_forest_partition_empty (t8_gloidx_t *offset, int rank)
 {
   if (t8_forest_partition_first_element (offset, rank) >=
       t8_forest_partition_first_element (offset, rank + 1)) {
@@ -70,7 +70,7 @@ t8_forest_partition_empty (t8_gloidx_t * offset, int rank)
 
 /* Compute the global index of the first local element.
  * This function is collective. */
-static              t8_gloidx_t
+static t8_gloidx_t
 t8_forest_compute_first_local_element_id (t8_forest_t forest)
 {
   t8_gloidx_t         first_element, local_num_elements;
@@ -362,7 +362,7 @@ t8_forest_partition_compute_new_offset (t8_forest_t forest)
  */
 static int
 t8_forest_partition_owner_of_element (int mpisize, t8_gloidx_t gelement,
-                                      t8_gloidx_t * offset)
+                                      t8_gloidx_t *offset)
 {
   /* Tree offsets are stored similar enough that we can exploit their function */
   /* In the element offset logic, an element cannot be owned by more than one
@@ -454,8 +454,8 @@ t8_forest_partition_tree_first_last_el (t8_tree_t tree,
                                         t8_locidx_t first_element_send,
                                         t8_locidx_t last_element_send,
                                         t8_locidx_t current_tree,
-                                        t8_locidx_t * first_tree_el,
-                                        t8_locidx_t * last_tree_el)
+                                        t8_locidx_t *first_tree_el,
+                                        t8_locidx_t *last_tree_el)
 {
   size_t              num_elements;
   if (tree_id == current_tree) {
@@ -504,7 +504,7 @@ t8_forest_partition_tree_first_last_el (t8_tree_t tree,
 static void
 t8_forest_partition_fill_buffer (t8_forest_t forest_from,
                                  char **send_buffer, int *buffer_alloc,
-                                 t8_locidx_t * current_tree,
+                                 t8_locidx_t *current_tree,
                                  t8_locidx_t first_element_send,
                                  t8_locidx_t last_element_send)
 {
@@ -566,7 +566,7 @@ t8_forest_partition_fill_buffer (t8_forest_t forest_from,
   /* We allocate the buffer */
   *send_buffer = T8_ALLOC (char, byte_alloc);
   /* We store the number of trees at first in the send buffer */
-  pnum_trees_send = (t8_locidx_t *) * send_buffer;
+  pnum_trees_send = (t8_locidx_t *) *send_buffer;
   *pnum_trees_send = num_trees_send;
   for (tree_id = 0; tree_id < num_trees_send; tree_id++) {
     /* Get the first tree that we send elements from */
@@ -648,7 +648,7 @@ t8_forest_partition_sendloop (t8_forest_t forest, const int send_first,
                               const int send_last, sc_MPI_Request ** requests,
                               int *num_request_alloc, char ***send_buffer,
                               const int send_data, const sc_array_t * data_in,
-                              size_t * byte_to_self)
+                              size_t *byte_to_self)
 {
   int                 iproc, mpiret;
   t8_gloidx_t         gfirst_element_send, glast_element_send;
@@ -810,7 +810,7 @@ t8_forest_partition_sendloop (t8_forest_t forest, const int send_first,
 static void
 t8_forest_partition_recv_message_data (t8_forest_t forest, sc_MPI_Comm comm,
                                        int proc, sc_MPI_Status * status,
-                                       t8_locidx_t * last_loc_elem_recvd,
+                                       t8_locidx_t *last_loc_elem_recvd,
                                        sc_array_t * data_out,
                                        char *sent_to_self,
                                        size_t byte_to_self)

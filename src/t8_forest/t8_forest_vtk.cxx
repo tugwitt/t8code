@@ -95,7 +95,7 @@ typedef int         (*t8_forest_vtk_cell_data_kernel) (t8_forest_t forest,
                                                        T8_VTK_KERNEL_MODUS
                                                        modus);
 
-static              t8_locidx_t
+static t8_locidx_t
 t8_forest_num_points (t8_forest_t forest, int count_ghosts)
 {
   t8_locidx_t         itree, num_points, num_ghosts;
@@ -369,7 +369,7 @@ t8_forest_vtk_cells_connectivity_kernel (t8_forest_t forest,
   }
   T8_ASSERT (modus == T8_VTK_KERNEL_EXECUTE);
 
-  count_vertices = (t8_locidx_t *) * data;
+  count_vertices = (t8_locidx_t *) *data;
 
   /* TODO: This will definitely break with pyramids */
   SC_CHECK_ABORT (ts->eclass != T8_ECLASS_PYRAMID,

@@ -31,7 +31,7 @@ typedef t8_dtet_t   t8_default_tet_t;
 static uint64_t     t8_default_tet_get_linear_id (const t8_element_t * elem,
                                                   int level);
 
-static              size_t
+static size_t
 t8_default_tet_size (void)
 {
   return sizeof (t8_default_tet_t);

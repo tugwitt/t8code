@@ -34,10 +34,10 @@
 void
 t8_cmesh_uniform_bounds (t8_cmesh_t cmesh, int level,
                          t8_scheme_cxx_t * ts,
-                         t8_gloidx_t * first_local_tree,
-                         t8_gloidx_t * child_in_tree_begin,
-                         t8_gloidx_t * last_local_tree,
-                         t8_gloidx_t * child_in_tree_end,
+                         t8_gloidx_t *first_local_tree,
+                         t8_gloidx_t *child_in_tree_begin,
+                         t8_gloidx_t *last_local_tree,
+                         t8_gloidx_t *child_in_tree_end,
                          int8_t * first_tree_shared)
 {
   int                 is_empty;

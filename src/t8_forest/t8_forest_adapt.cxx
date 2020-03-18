@@ -36,7 +36,7 @@ t8_forest_adapt_coarsen_recursive (t8_forest_t forest, t8_locidx_t ltreeid,
                                    t8_eclass_scheme_c * ts,
                                    t8_element_array_t * telement,
                                    t8_locidx_t el_coarsen,
-                                   t8_locidx_t * el_inserted,
+                                   t8_locidx_t *el_inserted,
                                    t8_element_t ** el_buffer)
 {
   t8_element_t       *element;
@@ -102,7 +102,7 @@ t8_forest_adapt_refine_recursive (t8_forest_t forest, t8_locidx_t ltreeid,
                                   t8_eclass_scheme_c * ts,
                                   sc_list_t * elem_list,
                                   t8_element_array_t * telements,
-                                  t8_locidx_t * num_inserted,
+                                  t8_locidx_t *num_inserted,
                                   t8_element_t ** el_buffer)
 {
   t8_element_t       *insert_el;

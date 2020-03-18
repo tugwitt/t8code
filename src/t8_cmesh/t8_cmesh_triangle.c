@@ -45,7 +45,7 @@
  * \return                  The number of read arguments of the last line read.
  *                          negative on failure */
 static int
-t8_cmesh_triangle_read_next_line (char **line, size_t * n, FILE * fp)
+t8_cmesh_triangle_read_next_line (char **line, size_t *n, FILE * fp)
 {
   int                 retval;
 
@@ -461,7 +461,7 @@ die_neigh:
 }
 
 /* TODO: remove do_dup argument */
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_from_tetgen_or_triangle_file (char *fileprefix, int partition,
                                        sc_MPI_Comm comm, int do_dup, int dim)
 {
@@ -553,7 +553,7 @@ t8_cmesh_from_tetgen_or_triangle_file (char *fileprefix, int partition,
   return cmesh;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_from_tetgen_or_triangle_file_time (char *fileprefix,
                                             int partition,
                                             sc_MPI_Comm comm, int do_dup,

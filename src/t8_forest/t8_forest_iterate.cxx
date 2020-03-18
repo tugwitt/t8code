@@ -38,7 +38,7 @@ typedef struct
 /* This is the function that we call in sc_split_array to determine for an
  * element E that is a descendant of an element e, of which of e's children,
  * E is a descendant. */
-static              size_t
+static size_t
 t8_forest_determine_child_type (sc_array_t * leaf_elements,
                                 size_t index, void *data)
 {
@@ -57,7 +57,7 @@ t8_forest_determine_child_type (sc_array_t * leaf_elements,
 
 void
 t8_forest_split_array (const t8_element_t * element,
-                       t8_element_array_t * leaf_elements, size_t * offsets)
+                       t8_element_array_t * leaf_elements, size_t *offsets)
 {
   sc_array_t          offset_view;
   sc_array_t         *element_array;

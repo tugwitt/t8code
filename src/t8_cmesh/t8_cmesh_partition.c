@@ -35,7 +35,7 @@
 
 #if 0
 /* Return the minimum of two t8_gloidx_t's */
-static              t8_gloidx_t
+static t8_gloidx_t
 t8_glo_min (t8_gloidx_t A, t8_gloidx_t B)
 {
   return A < B ? A : B;
@@ -49,7 +49,7 @@ t8_glo_min (t8_gloidx_t A, t8_gloidx_t B)
 static void
 t8_cmesh_partition_send_change_neighbor (t8_cmesh_t cmesh,
                                          t8_cmesh_t cmesh_from,
-                                         t8_locidx_t * neighbor, int to_proc)
+                                         t8_locidx_t *neighbor, int to_proc)
 {
   t8_gloidx_t         temp;
   t8_gloidx_t        *tree_offset;
@@ -385,8 +385,8 @@ t8_cmesh_partition_create_offsets (t8_cmesh_t cmesh, sc_MPI_Comm comm)
 /* Return a process that a given process definitely sends to/receives from */
 static int
 t8_cmesh_partition_send_any (int proc, t8_cmesh_t cmesh_from,
-                             t8_gloidx_t * offset_from,
-                             t8_gloidx_t * offset_to, int receive)
+                             t8_gloidx_t *offset_from,
+                             t8_gloidx_t *offset_to, int receive)
 {
   int                 lookhere, range[2], *sender, *receiver;
   int                 search_dir;
@@ -526,7 +526,7 @@ t8_cmesh_partition_send_any (int proc, t8_cmesh_t cmesh_from,
 #if 0
 /* Compute first and last process to which we will send data */
 /* Returns the local tree_id of last local tree on send_first. */
-static              t8_locidx_t
+static t8_locidx_t
 t8_cmesh_partition_sendrange (t8_cmesh_t cmesh_to, t8_cmesh_t cmesh_from,
                               int *send_first, int *send_last, int receive)
 {
@@ -696,9 +696,9 @@ t8_cmesh_partition_sendrange (t8_cmesh_t cmesh_to, t8_cmesh_t cmesh_from,
 #if 0
 /* Compute first and last process to which we will send data */
 /* Returns the local tree_id of last local tree on send_first. */
-static              t8_locidx_t
+static t8_locidx_t
 t8_cmesh_partition_sendrange_old (t8_cmesh_t cmesh, t8_cmesh_t cmesh_from,
-                                  t8_gloidx_t * tree_offsets,
+                                  t8_gloidx_t *tree_offsets,
                                   int *send_first, int *send_last,
                                   int receive)
 {
@@ -941,7 +941,7 @@ t8_cmesh_partition_recvrange (t8_cmesh_t cmesh, t8_cmesh_t cmesh_from,
 #endif
 
 /* A much faster version to compute the sendrange */
-static              t8_locidx_t
+static t8_locidx_t
 t8_cmesh_partition_alternative_sendrange (t8_cmesh_t cmesh,
                                           t8_cmesh_t cmesh_from,
                                           int *send_first, int *send_last)
@@ -1194,7 +1194,7 @@ t8_cmesh_partition_alternative_recvrange (t8_cmesh_t cmesh,
 
 /* Compute the number of bytes that need to be allocated in the send buffer
  * for the neighbor entries of ghost */
-static              size_t
+static size_t
 t8_partition_compute_gnb (t8_cmesh_t cmesh_from, sc_array_t * send_as_ghost)
 {
   size_t              ghost_neighbor_bytes = 0, ighost;
@@ -1225,7 +1225,7 @@ t8_partition_compute_gnb (t8_cmesh_t cmesh_from, sc_array_t * send_as_ghost)
  * for the attribute entries of all ghosts. */
 static size_t
 t8_partition_compute_gab (t8_cmesh_t cmesh_from, sc_array_t * send_as_ghost,
-                          size_t * attr_info_bytes)
+                          size_t *attr_info_bytes)
 {
   size_t              ghost_attribute_bytes = 0, ighost;
   t8_locidx_t         ghost_id, ghost_id_min_offset;
@@ -1706,11 +1706,11 @@ t8_cmesh_partition_sendtreeloop (t8_cmesh_t cmesh,
                                  const struct t8_cmesh *cmesh_from,
                                  t8_locidx_t range_start,
                                  t8_locidx_t range_end,
-                                 size_t * tree_neighbor_bytes,
-                                 size_t * attr_bytes,
-                                 size_t * attr_info_bytes,
+                                 size_t *tree_neighbor_bytes,
+                                 size_t *attr_bytes,
+                                 size_t *attr_info_bytes,
                                  int8_t * ghost_flag_send,
-                                 t8_gloidx_t * tree_offset, int iproc,
+                                 t8_gloidx_t *tree_offset, int iproc,
                                  sc_array_t * send_as_ghost)
 {
   t8_ctree_t          tree;
@@ -1781,7 +1781,7 @@ t8_cmesh_partition_sendloop (t8_cmesh_t cmesh, t8_cmesh_t cmesh_from,
                              int *num_request_alloc, int *send_first,
                              int *send_last,
                              char ***send_buffer, char **my_buffer,
-                             size_t * my_buffer_bytes,
+                             size_t *my_buffer_bytes,
                              sc_MPI_Request ** requests, sc_MPI_Comm comm)
 {
   size_t              attr_bytes = 0, tree_neighbor_bytes,
@@ -2064,7 +2064,7 @@ void
 t8_cmesh_partition_receive_message (t8_cmesh_t cmesh, sc_MPI_Comm comm,
                                     int proc_recv, sc_MPI_Status * status,
                                     int *local_procid, int recv_first,
-                                    t8_locidx_t * num_ghosts)
+                                    t8_locidx_t *num_ghosts)
 {
   int                 mpiret;
   int                 recv_bytes;
@@ -2122,7 +2122,7 @@ t8_cmesh_partition_receive_message (t8_cmesh_t cmesh, sc_MPI_Comm comm,
 static void
 t8_cmesh_partition_recvloop (t8_cmesh_t cmesh,
                              const struct t8_cmesh *cmesh_from,
-                             t8_gloidx_t * tree_offset,
+                             t8_gloidx_t *tree_offset,
                              char *my_buffer, size_t my_buffer_bytes,
                              sc_MPI_Comm comm, int fr, int lr)
 {
@@ -2467,7 +2467,7 @@ t8_cmesh_partition_debug_listprocs (t8_cmesh_t cmesh, t8_cmesh_t cmesh_from,
 /* TODO: remove const */
 static void
 t8_cmesh_partition_given (t8_cmesh_t cmesh, const struct t8_cmesh *cmesh_from,
-                          t8_gloidx_t * tree_offset, sc_MPI_Comm comm)
+                          t8_gloidx_t *tree_offset, sc_MPI_Comm comm)
 {
   int                 send_first, send_last, num_request_alloc; /* ranks of the processor to which we will send */
   int                 iproc, num_send_mpi, mpiret;

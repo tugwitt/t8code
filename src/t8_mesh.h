@@ -64,7 +64,7 @@ void                t8_mesh_set_element (t8_mesh_t * mesh,
 
 void                t8_mesh_set_local_to_global (t8_mesh_t * mesh,
                                                  t8_locidx_t ltog_length,
-                                                 const t8_gloidx_t * ltog);
+                                                 const t8_gloidx_t *ltog);
 
 void                t8_mesh_set_face (t8_mesh_t * mesh,
                                       t8_locidx_t locid1, int face1,
@@ -74,7 +74,7 @@ void                t8_mesh_set_face (t8_mesh_t * mesh,
 void                t8_mesh_set_element_vertices (t8_mesh_t * mesh,
                                                   t8_locidx_t locid,
                                                   t8_locidx_t vids_length,
-                                                  const t8_locidx_t * vids);
+                                                  const t8_locidx_t *vids);
 
 #if 0
 void                t8_mesh_set_element_scheme (t8_mesh_t * mesh,
@@ -116,7 +116,7 @@ t8_element_t        t8_mesh_get_element (t8_mesh_t * mesh, t8_locidx_t locid);
 void                t8_mesh_get_element_boundary (t8_mesh_t * mesh,
                                                   t8_locidx_t locid,
                                                   int length_boundary,
-                                                  t8_locidx_t * elemid,
+                                                  t8_locidx_t *elemid,
                                                   int *orientation);
 
 /** Return the maximum of the length of the support of any local element.
@@ -129,7 +129,7 @@ int                 t8_mesh_get_maximum_support (t8_mesh_t * mesh);
 void                t8_mesh_get_element_support (t8_mesh_t * mesh,
                                                  t8_locidx_t locid,
                                                  int *length_support,
-                                                 t8_locidx_t * elemid,
+                                                 t8_locidx_t *elemid,
                                                  int *orientation);
 
 /***************************** destruct *************************/

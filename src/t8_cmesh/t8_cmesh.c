@@ -168,7 +168,7 @@ t8_cmesh_comm_is_valid (t8_cmesh_t cmesh, sc_MPI_Comm comm)
 }
 
 void
-t8_cmesh_init (t8_cmesh_t * pcmesh)
+t8_cmesh_init (t8_cmesh_t *pcmesh)
 {
   t8_cmesh_t          cmesh;
   T8_ASSERT (pcmesh != NULL);
@@ -255,7 +255,7 @@ t8_cmesh_set_partition (t8_cmesh_t cmesh, int set_partition,
                         int set_face_knowledge,
                         t8_gloidx_t first_local_tree,
                         t8_gloidx_t last_local_tree,
-                        t8_gloidx_t * tree_offsets)
+                        t8_gloidx_t *tree_offsets)
 {
   T8_ASSERT (t8_cmesh_is_initialized (cmesh));
   T8_ASSERT (0 <= set_face_knowledge && set_face_knowledge <= 3);
@@ -387,7 +387,7 @@ t8_cmesh_set_partition_uniform (t8_cmesh_t cmesh, int element_level,
 /* No longer needed */
 void
 t8_cmesh_set_partition_from (t8_cmesh_t cmesh, const t8_cmesh_t cmesh_from,
-                             int level, t8_gloidx_t * tree_offsets)
+                             int level, t8_gloidx_t *tree_offsets)
 {
   T8_ASSERT (t8_cmesh_is_initialized (cmesh));
   T8_ASSERT (t8_cmesh_is_committed (cmesh_from));
@@ -537,7 +537,7 @@ t8_cmesh_tree_id_is_owned (t8_cmesh_t cmesh, t8_locidx_t tree_id)
 /* Given a tree_id return the index of the specified tree in
  * cmesh's tree array
  */
-static              t8_locidx_t
+static t8_locidx_t
 t8_cmesh_tree_index (t8_cmesh_t cmesh, t8_locidx_t tree_id)
 {
   return cmesh->set_partition ? tree_id - cmesh->first_tree : tree_id;
@@ -1259,7 +1259,7 @@ t8_cmesh_print_profile (t8_cmesh_t cmesh)
 }
 
 static void
-t8_cmesh_reset (t8_cmesh_t * pcmesh)
+t8_cmesh_reset (t8_cmesh_t *pcmesh)
 {
   t8_cmesh_t          cmesh;
 
@@ -1320,7 +1320,7 @@ t8_cmesh_ref (t8_cmesh_t cmesh)
 }
 
 void
-t8_cmesh_unref (t8_cmesh_t * pcmesh)
+t8_cmesh_unref (t8_cmesh_t *pcmesh)
 {
   t8_cmesh_t          cmesh;
   T8_ASSERT (pcmesh != NULL);
@@ -1332,7 +1332,7 @@ t8_cmesh_unref (t8_cmesh_t * pcmesh)
 }
 
 void
-t8_cmesh_destroy (t8_cmesh_t * pcmesh)
+t8_cmesh_destroy (t8_cmesh_t *pcmesh)
 {
   T8_ASSERT (pcmesh != NULL && *pcmesh != NULL &&
              t8_refcount_is_last (&(*pcmesh)->rc));
@@ -1348,7 +1348,7 @@ t8_cmesh_destroy (t8_cmesh_t * pcmesh)
  * If offset is nonzero, then set_partition must be true and the cmesh is
  * partitioned and has all trees in conn as local trees.
  * The offsets on the different processes must add up! */
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_from_p4est_ext (void *conn, int dim,
                              sc_MPI_Comm comm, int set_partition,
                              t8_gloidx_t offset)
@@ -1466,7 +1466,7 @@ t8_cmesh_new_from_p8est (p8est_connectivity_t * conn,
   return t8_cmesh_new_from_p4est_ext (conn, 3, comm, do_partition, 0);
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_vertex (sc_MPI_Comm comm)
 {
   t8_cmesh_t          cmesh;
@@ -1480,7 +1480,7 @@ t8_cmesh_new_vertex (sc_MPI_Comm comm)
   return cmesh;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_line (sc_MPI_Comm comm)
 {
   t8_cmesh_t          cmesh;
@@ -1495,7 +1495,7 @@ t8_cmesh_new_line (sc_MPI_Comm comm)
   return cmesh;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_tri (sc_MPI_Comm comm)
 {
   t8_cmesh_t          cmesh;
@@ -1511,7 +1511,7 @@ t8_cmesh_new_tri (sc_MPI_Comm comm)
   return cmesh;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_tet (sc_MPI_Comm comm)
 {
   t8_cmesh_t          cmesh;
@@ -1528,7 +1528,7 @@ t8_cmesh_new_tet (sc_MPI_Comm comm)
   return cmesh;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_quad (sc_MPI_Comm comm)
 {
   t8_cmesh_t          cmesh;
@@ -1545,7 +1545,7 @@ t8_cmesh_new_quad (sc_MPI_Comm comm)
   return cmesh;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_hex (sc_MPI_Comm comm)
 {
   t8_cmesh_t          cmesh;
@@ -1566,7 +1566,7 @@ t8_cmesh_new_hex (sc_MPI_Comm comm)
   return cmesh;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_pyramid (sc_MPI_Comm comm)
 {
   t8_cmesh_t          cmesh;
@@ -1581,7 +1581,7 @@ t8_cmesh_new_pyramid (sc_MPI_Comm comm)
   return cmesh;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_cmesh_new_prism (sc_MPI_Comm comm)
 {
   t8_cmesh_t          cmesh;

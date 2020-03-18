@@ -122,7 +122,7 @@ void                t8_forest_copy_trees (t8_forest_t forest,
  */
 t8_ctree_t          t8_forest_get_coarse_tree_ext (t8_forest_t forest,
                                                    t8_locidx_t ltreeid,
-                                                   t8_locidx_t ** face_neigh,
+                                                   t8_locidx_t **face_neigh,
                                                    int8_t ** ttf);
 
 /** Given a forest whose trees are already filled with elements compute
@@ -438,8 +438,8 @@ void                t8_forest_leaf_face_neighbors (t8_forest_t forest,
                                                    int face,
                                                    int *dual_faces[],
                                                    int *num_neighbors,
-                                                   t8_locidx_t **
-                                                   pelement_indices,
+                                                   t8_locidx_t
+                                                   **pelement_indices,
                                                    t8_eclass_scheme_c **
                                                    pneigh_scheme,
                                                    int forest_is_balanced);

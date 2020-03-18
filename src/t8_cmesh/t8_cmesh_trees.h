@@ -292,10 +292,10 @@ void                t8_cmesh_trees_set_all_boundary (t8_cmesh_t cmesh,
 
 void                t8_cmesh_trees_get_part_data (t8_cmesh_trees_t trees,
                                                   int proc,
-                                                  t8_locidx_t * first_tree,
-                                                  t8_locidx_t * num_trees,
-                                                  t8_locidx_t * first_ghost,
-                                                  t8_locidx_t * num_ghosts);
+                                                  t8_locidx_t *first_tree,
+                                                  t8_locidx_t *num_trees,
+                                                  t8_locidx_t *first_ghost,
+                                                  t8_locidx_t *num_ghosts);
 
 /* TODO: This function return NULL if the tree is not present.
  *       So far no error checking is done here. */
@@ -319,7 +319,7 @@ t8_ctree_t          t8_cmesh_trees_get_tree (t8_cmesh_trees_t trees,
  */
 t8_ctree_t          t8_cmesh_trees_get_tree_ext (t8_cmesh_trees_t trees,
                                                  t8_locidx_t ltree_id,
-                                                 t8_locidx_t ** face_neigh,
+                                                 t8_locidx_t **face_neigh,
                                                  int8_t ** ttf);
 
 /** Given a coarse tree and a face number, return the local id of the neighbor tree.
@@ -351,7 +351,7 @@ t8_cghost_t         t8_cmesh_trees_get_ghost (t8_cmesh_trees_t trees,
  */
 t8_cghost_t         t8_cmesh_trees_get_ghost_ext (t8_cmesh_trees_t trees,
                                                   t8_locidx_t lghost_id,
-                                                  t8_gloidx_t ** face_neigh,
+                                                  t8_gloidx_t **face_neigh,
                                                   int8_t ** ttf);
 
 /** Given the global tree id of a ghost tree in a trees structure,
@@ -411,8 +411,7 @@ void                t8_cmesh_trees_attribute_info_sort (t8_cmesh_trees_t
 void               *t8_cmesh_trees_get_attribute (t8_cmesh_trees_t trees,
                                                   t8_locidx_t ltree_id,
                                                   int package_id, int key,
-                                                  size_t * size,
-                                                  int is_ghost);
+                                                  size_t *size, int is_ghost);
 
 /** Return the total size of all attributes stored at a specified tree.
  * \param [in]        tree  A tree structure.

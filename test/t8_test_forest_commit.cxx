@@ -72,7 +72,7 @@ t8_test_adapt_balance (t8_forest_t forest, t8_forest_t forest_from,
  * i = 2: cmesh_new_bigmesh (2 trees)
  * else:  cmesh_new_class
  */
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_test_create_cmesh (int i, t8_eclass_t eclass, sc_MPI_Comm comm)
 {
   switch (i) {
@@ -88,7 +88,7 @@ t8_test_create_cmesh (int i, t8_eclass_t eclass, sc_MPI_Comm comm)
 }
 
 /* adapt, balance and partition a given forest in one step */
-static              t8_forest_t
+static t8_forest_t
 t8_test_forest_commit_abp (t8_forest_t forest, int maxlevel)
 {
   t8_forest_t         forest_ada_bal_par;
@@ -106,7 +106,7 @@ t8_test_forest_commit_abp (t8_forest_t forest, int maxlevel)
 }
 
 /* adapt, balance and partition a given forest in 3 steps */
-static              t8_forest_t
+static t8_forest_t
 t8_test_forest_commit_abp_3step (t8_forest_t forest, int maxlevel)
 {
   t8_forest_t         forest_adapt, forest_balance, forest_partition;

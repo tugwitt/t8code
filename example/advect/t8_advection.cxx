@@ -1104,7 +1104,7 @@ t8_advect_problem_partition (t8_advect_problem_t * problem, int measure_time)
   problem->phi_values = new_phi;
 }
 
-static              t8_cmesh_t
+static t8_cmesh_t
 t8_advect_create_cmesh (sc_MPI_Comm comm, t8_eclass_t eclass,
                         const char *mshfile, int level, int dim)
 {

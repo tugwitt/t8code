@@ -97,7 +97,7 @@ const int           t8_vertex_to_msh_vertex_num[T8_ECLASS_COUNT][8]
  * \return                  The number of read arguments of the last line read.
  *                          negative on failure */
 static int
-t8_cmesh_msh_read_next_line (char **line, size_t * n, FILE * fp)
+t8_cmesh_msh_read_next_line (char **line, size_t *n, FILE * fp)
 {
   int                 retval;
 
@@ -176,7 +176,7 @@ t8_msh_file_node_compare (const void *node_a, const void *node_b,
 /* Read an open .msh file and parse the nodes into a hash table.
  */
 static sc_hash_t   *
-t8_msh_file_read_nodes (FILE * fp, t8_locidx_t * num_nodes,
+t8_msh_file_read_nodes (FILE * fp, t8_locidx_t *num_nodes,
                         sc_mempool_t ** node_mempool)
 {
   t8_msh_file_node_t *Node;

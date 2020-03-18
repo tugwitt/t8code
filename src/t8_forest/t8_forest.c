@@ -34,7 +34,7 @@
 #include <t8_cmesh/t8_cmesh_trees.h>
 
 void
-t8_forest_init (t8_forest_t * pforest)
+t8_forest_init (t8_forest_t *pforest)
 {
   t8_forest_t         forest;
 
@@ -842,7 +842,7 @@ t8_forest_compare_elem_tree (const void *lelement_id, const void *ltree)
 
 t8_element_t       *
 t8_forest_get_element (t8_forest_t forest, t8_locidx_t lelement_id,
-                       t8_locidx_t * ltreeid)
+                       t8_locidx_t *ltreeid)
 {
   t8_tree_t           tree;
   t8_locidx_t         ltree;
@@ -1102,7 +1102,7 @@ t8_forest_cmesh_ltreeid_to_ltreeid (t8_forest_t forest, t8_locidx_t lctreeid)
 t8_ctree_t
 t8_forest_get_coarse_tree_ext (t8_forest_t forest,
                                t8_locidx_t ltreeid,
-                               t8_locidx_t ** face_neigh, int8_t ** ttf)
+                               t8_locidx_t **face_neigh, int8_t ** ttf)
 {
   t8_locidx_t         lctreeid;
 
@@ -1219,7 +1219,7 @@ t8_forest_profile_get_balance_time (t8_forest_t forest, int *balance_rounds)
 
 double
 t8_forest_profile_get_ghost_time (t8_forest_t forest,
-                                  t8_locidx_t * ghosts_sent)
+                                  t8_locidx_t *ghosts_sent)
 {
   T8_ASSERT (t8_forest_is_committed (forest));
   if (forest->profile != NULL) {
@@ -1354,7 +1354,7 @@ t8_forest_free_trees (t8_forest_t forest)
  * forest has taken ownership on.
  */
 static void
-t8_forest_reset (t8_forest_t * pforest)
+t8_forest_reset (t8_forest_t *pforest)
 {
   int                 mpiret;
   t8_forest_t         forest;
@@ -1422,7 +1422,7 @@ t8_forest_ref (t8_forest_t forest)
 }
 
 void
-t8_forest_unref (t8_forest_t * pforest)
+t8_forest_unref (t8_forest_t *pforest)
 {
   t8_forest_t         forest;
 

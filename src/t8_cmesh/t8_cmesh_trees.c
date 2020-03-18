@@ -361,7 +361,7 @@ t8_cmesh_trees_set_all_boundary (t8_cmesh_t cmesh, t8_cmesh_trees_t trees)
 }
 
 /* return the total size of a trees face_neighbor entries, including padding */
-static              size_t
+static size_t
 t8_cmesh_trees_neighbor_bytes (t8_ctree_t tree)
 {
   size_t              total_size;
@@ -373,7 +373,7 @@ t8_cmesh_trees_neighbor_bytes (t8_ctree_t tree)
 }
 
 /* return the total size of a ghosts face_neighbor entries, including padding */
-static              size_t
+static size_t
 t8_cmesh_trees_gneighbor_bytes (t8_cghost_t tree)
 {
   size_t              total_size;
@@ -416,7 +416,7 @@ t8_cmesh_trees_ghost_attribute_size (t8_cghost_t ghost)
 
 /* Return the number of allocated bytes for a part's
  * first_tree array */
-static              size_t
+static size_t
 t8_cmesh_trees_get_part_alloc (t8_cmesh_trees_t trees, t8_part_tree_t part)
 {
   size_t              byte_alloc;
@@ -441,10 +441,10 @@ t8_cmesh_trees_get_part_alloc (t8_cmesh_trees_t trees, t8_part_tree_t part)
 
 void
 t8_cmesh_trees_get_part_data (t8_cmesh_trees_t trees, int proc,
-                              t8_locidx_t * first_tree,
-                              t8_locidx_t * num_trees,
-                              t8_locidx_t * first_ghost,
-                              t8_locidx_t * num_ghosts)
+                              t8_locidx_t *first_tree,
+                              t8_locidx_t *num_trees,
+                              t8_locidx_t *first_ghost,
+                              t8_locidx_t *num_ghosts)
 {
   t8_part_tree_t      part;
 
@@ -484,7 +484,7 @@ t8_cmesh_trees_get_tree (t8_cmesh_trees_t trees, t8_locidx_t ltree)
 
 t8_ctree_t
 t8_cmesh_trees_get_tree_ext (t8_cmesh_trees_t trees, t8_locidx_t ltree_id,
-                             t8_locidx_t ** face_neigh, int8_t ** ttf)
+                             t8_locidx_t **face_neigh, int8_t ** ttf)
 {
   t8_ctree_t          tree;
   tree = t8_cmesh_trees_get_tree (trees, ltree_id);
@@ -524,7 +524,7 @@ t8_cmesh_trees_get_ghost (t8_cmesh_trees_t trees, t8_locidx_t lghost)
 
 t8_cghost_t
 t8_cmesh_trees_get_ghost_ext (t8_cmesh_trees_t trees, t8_locidx_t lghost_id,
-                              t8_gloidx_t ** face_neigh, int8_t ** ttf)
+                              t8_gloidx_t **face_neigh, int8_t ** ttf)
 {
   t8_cghost_t         ghost;
 
@@ -743,7 +743,7 @@ t8_cmesh_trees_compare_keyattr (const void *A1, const void *A2)
 /* The size of the attribute is not returned, but would be accesible */
 void               *
 t8_cmesh_trees_get_attribute (t8_cmesh_trees_t trees, t8_locidx_t ltree_id,
-                              int package_id, int key, size_t * size,
+                              int package_id, int key, size_t *size,
                               int is_ghost)
 {
   int                 proc;
@@ -909,7 +909,7 @@ t8_cmesh_ctree_is_equal (t8_ctree_t tree_a, t8_ctree_t tree_b)
  * This function just does a linear search on the ghost array and its runtime is
  * thus O(number of local ghosts).
  */
-static              t8_locidx_t
+static t8_locidx_t
 t8_cmesh_trees_ghost_id (t8_cmesh_t cmesh, t8_cmesh_trees_t trees,
                          t8_gloidx_t gghost_id)
 {

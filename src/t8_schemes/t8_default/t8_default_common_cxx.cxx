@@ -115,7 +115,7 @@ t8_element_shape_t
 
 /* Given an element's level and dimension, return the number of leafs it
  * produces at a given uniform refinement level */
-static inline       t8_gloidx_t
+static inline t8_gloidx_t
 count_leafs_from_level (int element_level, int refinement_level,
                         int dimension)
 {
@@ -124,8 +124,8 @@ count_leafs_from_level (int element_level, int refinement_level,
 }
 
 t8_gloidx_t
-  t8_default_scheme_common_c::t8_element_count_leafs (const t8_element_t * t,
-                                                      int level)
+t8_default_scheme_common_c::t8_element_count_leafs (const t8_element_t * t,
+                                                    int level)
 {
 #if T8_ENABLE_DEBUG
   if (eclass == T8_ECLASS_PYRAMID) {
@@ -139,7 +139,7 @@ t8_gloidx_t
 }
 
 t8_gloidx_t
-  t8_default_scheme_common_c::t8_element_count_leafs_from_root (int level)
+t8_default_scheme_common_c::t8_element_count_leafs_from_root (int level)
 {
 #if T8_ENABLE_DEBUG
   if (eclass == T8_ECLASS_PYRAMID) {
