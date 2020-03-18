@@ -11,7 +11,7 @@
 # Copyright Johannes Holke 2020
 
 # This is the indent script in the project's directory
-INDENT=./scripts/t8indent
+INDENT=./t8indent
 
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
@@ -43,7 +43,7 @@ do
   if [ $FILE_ENDING = "c" -o $FILE_ENDING = "h" -o $FILE_ENDING = "cxx" -o $FILE_ENDING = "hxx" ]
   then
     echo "Checking file $file"
-    scripts/check_if_file_indented.scp $file $INDENT
+    cd scripts && ./check_if_file_indented.scp ../$file $INDENT
     status=$?
     if test $status -ne 0 
     then
