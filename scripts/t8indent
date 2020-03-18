@@ -18,9 +18,10 @@
 # swallow optional blank lines
 INDENT_OPTIONS="-bap -bli0 -br -nut -psl -sob -di20"
 
-# Indent has problems with user defined data types.
-# We can tell indent manually which datatypes we defined.
-# If you encounter an indenting problem with a user defined
+# Indent has problems with user defined data types
+# and some other data types (i.e. size_t).
+# We can tell indent manually which datatypes we defined and use.
+# If you encounter an indenting problem with a (user defined)
 # type, add it with a -T prefix to this list.
 #
 # Example without -T t8_cmesh_t:
@@ -32,7 +33,8 @@ INDENT_OPTIONS="-bap -bli0 -br -nut -psl -sob -di20"
 # Example with -T t8_cmesh_t:
 #   static t8_cmesh_t
 #   afunction (int aparameter) {
-T8CODE_TYPEDEFS="-T t8_cmesh_t -T t8_forest_t"
+T8CODE_ADDITIONAL_DATATYPES="-T t8_cmesh_t -T t8_forest_t -T size_t \
+	                     -T t8_locidx_t -T t8_gloidx_t"
 
 INDENT=`which gnuindent 2> /dev/null`
 if test -z "$INDENT" ; then
@@ -49,7 +51,7 @@ for arg in "$@" ; do
 done
 if [ -z "$WANTSOUT" ]; then
   for NAME in "$@" ; do
-    $INDENT $INDENT_OPTIONS $T8CODE_TYPEDEFS "$NAME"
+    $INDENT $INDENT_OPTIONS $T8CODE_ADDITIONAL_DATATYPES "$NAME"
   done
 else
   $INDENT $INDENT_OPTIONS $@
